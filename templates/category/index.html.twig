@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="categories">
+        <h2>Категории</h2>
+        <ul>
+            {% for category in categories %}
+                <li><a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(categories) }}
+    </div>
+{% endblock %}
+

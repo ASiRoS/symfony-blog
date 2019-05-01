@@ -1,0 +1,19 @@
+App\Entity\Category:
+  categories_{1..20}:
+    name: <name()>
+
+App\Entity\User:
+  users_{1..100}:
+    username: <userName()>
+    plainPassword: 123456
+
+App\Entity\Post:
+  posts_{1..1000}:
+    category: '@categories_<numberBetween(1,20)>'
+    author: '@users_<numberBetween(1, 100)>'
+    name: <title()>
+    description: <text()>
+
+App\Entity\Tag:
+  tags_{1..500}:
+    title: <title()>

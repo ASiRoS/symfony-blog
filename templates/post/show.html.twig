@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <article class="post">
+        <h2 class="post-name">{{ post.name }}</h2>
+        <p class="post-description">{{ post.description }}</p>
+    </article>
+
+    {% if is_granted('ROLE_USER') %}
+        {{ form_start(commentForm, {'action': path('post_comment', {'id': post.id})}) }}
+
+            {{ form_label(commentForm.text, 'Комментарий (минимум 10 символов)') }}
+            {{ form_widget(commentForm.text) }}
+
+            <button class="btn btn-primary">Прокомментировать</button>
+        {{ form_end(commentForm) }}
+    {% endif %}
+
+    <section class="comments">
+            {% for comment in comments %}
+                <section class="comment">
+                    <p class="comment-author">{{ comment.author.username }}</p>
+                    <p class="comment-text">{{ comment.text }}</p>
+                </section>
+            {% endfor %}
+    </section>
+{% endblock %}
+

@@ -26,3 +26,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    app.doctrine.listener.hash_password:
+        class: App\Listener\Doctrine\HashPasswordListener
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    app.doctrine.listener.timestamp:
+        class: App\Listener\Doctrine\Timestamp\TimestampListener
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    app.service.paginator:
+        class: App\Service\PaginatorService
+        autowire: true
