@@ -3,8 +3,19 @@
 {% block content %}
     <div class="posts">
         {% for post in posts %}
-            <div class="post">
-                <a class="post-name" href="{{ path('post_show', {'id': post.id}) }}">{{ post.name }}</a>
+            <div class="card">
+                <div class="card-header"><a href="{{  path('post_show', {'id': post.id}) }}">Post: {{ post.name }}</a></div>
+                <div class="card-body">
+                    {{ post.description|truncate(200) }}
+                    <p class="tags">
+                        <strong>Tags: </strong>
+                        {% for tag in post.tags %}
+                            <a href="{{ path('tags_post', {'q': tag.title}) }}">{{ tag.title }}</a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+
+                    <a href="{{ path('post_show', {'id': post.id}) }}">Читать дальше</a>
+                </div>
             </div>
         {% endfor %}
     </div>

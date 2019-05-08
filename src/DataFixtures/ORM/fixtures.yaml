@@ -3,17 +3,23 @@ App\Entity\Category:
     name: <name()>
 
 App\Entity\User:
-  users_{1..100}:
+  users_{1..50}:
     username: <userName()>
     plainPassword: 123456
-
-App\Entity\Post:
-  posts_{1..1000}:
-    category: '@categories_<numberBetween(1,20)>'
-    author: '@users_<numberBetween(1, 100)>'
-    name: <title()>
-    description: <text()>
+  admin:
+    username: admin
+    plainPassword: 123456
+    roles: ['ROLE_ADMIN']
 
 App\Entity\Tag:
-  tags_{1..500}:
-    title: <title()>
+  tags_{1..50}:
+    title (unique): <userName()>
+
+App\Entity\Post:
+  posts_{1..100}:
+    category: '@categories_*'
+    author: '@users_*'
+    name: <title()>
+    description: <text(1000)>
+    tags: '3x @tags_*'
+

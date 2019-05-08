@@ -1,28 +1,52 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-    <article class="post">
-        <h2 class="post-name">{{ post.name }}</h2>
-        <p class="post-description">{{ post.description }}</p>
+    <article class="card">
+        <div class="card-header">{{ post.name }}</div>
+        <div class="card-body">
+            <p class="post-description">{{ post.description }}</p>
+            <p class="tags">
+                <strong>Tags: </strong>
+                {% for tag in post.tags %}
+                    <a href="{{ path('tags_post', {'q': tag.title}) }}">{{ tag.title }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        </div>
     </article>
 
     {% if is_granted('ROLE_USER') %}
-        {{ form_start(commentForm, {'action': path('post_comment', {'id': post.id})}) }}
+        <div class="card">
+            <div class="card-header">Оставить комментарий:</div>
+            <div class="card-body">
+                {{ form_start(commentForm, {'action': path('post_comment', {'id': post.id})}) }}
 
-            {{ form_label(commentForm.text, 'Комментарий (минимум 10 символов)') }}
-            {{ form_widget(commentForm.text) }}
+                <div class="form-group">
+                    {{ form_label(commentForm.text, 'Комментарий (минимум 10 символов)') }}
+                    {{ form_widget(commentForm.text, {'attr': {'class': 'form-control', 'minlength': 10}}) }}
+                </div>
 
-            <button class="btn btn-primary">Прокомментировать</button>
-        {{ form_end(commentForm) }}
+                <button class="btn btn-primary">Прокомментировать</button>
+                {{ form_end(commentForm) }}
+            </div>
+        </div>
     {% endif %}
 
     <section class="comments">
-            {% for comment in comments %}
-                <section class="comment">
-                    <p class="comment-author">{{ comment.author.username }}</p>
-                    <p class="comment-text">{{ comment.text }}</p>
-                </section>
-            {% endfor %}
+        <h2></h2>
+        {% for comment in comments %}
+            <section class="card">
+                <p class="card-header">{{ comment.author.username }}</p>
+                <p class="card-body">{{ comment.text }}</p>
+            </section>
+        {% endfor %}
     </section>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $('');
+        </script>
+    {% endblock %}
+
 {% endblock %}
 

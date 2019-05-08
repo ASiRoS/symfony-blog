@@ -2,7 +2,7 @@
 
 namespace App\Traits\Doctrine;
 
-use DateTimeImmutable;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 trait Timestamp
@@ -17,24 +17,24 @@ trait Timestamp
      */
     private $updated;
 
-    public function getCreated(): DateTimeImmutable
+    public function getCreated(): ?DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(DateTimeImmutable $created)
+    public function setCreated(DateTime $created)
     {
         $this->created = $created;
 
         return $this;
     }
 
-    public function getUpdated(): DateTimeImmutable
+    public function getUpdated(): ?DateTime
     {
         return $this->updated;
     }
 
-    public function setUpdated(DateTimeImmutable $updated)
+    public function setUpdated(DateTime $updated)
     {
         $this->updated = $updated;
 

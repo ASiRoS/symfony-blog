@@ -5,6 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% endblock %}
     </head>
     <body>
@@ -21,10 +22,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('category_index') }}">Категории</a>
                     </li>
-                    {% if is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a href="{{ path('easyadmin') }}" class="nav-link">Админка</a>
                         </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('logout') }}">Выйти</a>
                         </li>

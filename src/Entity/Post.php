@@ -6,6 +6,7 @@ use App\Listener\Doctrine\Timestamp\TimestampInterface;
 use App\Traits\Doctrine\Id;
 use App\Traits\Doctrine\Published;
 use App\Traits\Doctrine\Timestamp;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,20 +25,31 @@ class Post implements TimestampInterface
     private $name;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
      */
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts", cascade={"persist"})
      */
     private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     */
+    private $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
 
     public function getCategory()
     {
@@ -51,7 +63,7 @@ class Post implements TimestampInterface
         return $this;
     }
 
-    public function getAuthor(): User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
@@ -63,7 +75,7 @@ class Post implements TimestampInterface
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -75,7 +87,7 @@ class Post implements TimestampInterface
         return $this;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -85,5 +97,31 @@ class Post implements TimestampInterface
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->name;
+    }
+
+    public function addTag(Tag $tag): void
+    {
+        if($this->tags->contains($tag)) {
+            return;
+        }
+
+        $this->tags->add($tag);
+    }
+
+    public function removeTag(Tag $tag): void
+    {
+        if($this->tags->contains($tag)) {
+            $this->tags->remove($tag);
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Listener\Doctrine\Timestamp;
 
-use DateTimeImmutable;
+use DateTime;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
@@ -12,8 +12,8 @@ class TimestampListener implements EventSubscriber
     {
         if($entity = $this->getEntity($args)) {
             $entity
-                ->setCreated(new DateTimeImmutable())
-                ->setUpdated(new DateTimeImmutable())
+                ->setCreated(new DateTime())
+                ->setUpdated(new DateTime())
             ;
         }
     }
@@ -21,7 +21,7 @@ class TimestampListener implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args): void
     {
         if($entity = $this->getEntity($args)) {
-            $entity->setUpdated(new DateTimeImmutable());
+            $entity->setUpdated(new DateTime());
         }
     }
 

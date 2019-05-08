@@ -38,7 +38,7 @@ class Category
         return $this->posts;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -48,5 +48,10 @@ class Category
         $this->name = $name;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getName();
     }
 }

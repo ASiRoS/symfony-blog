@@ -2,15 +2,15 @@
 
 namespace App\Listener\Doctrine\Timestamp;
 
-use DateTimeImmutable;
+use DateTime;
 
 interface TimestampInterface
 {
-    public function getCreated(): DateTimeImmutable;
+    public function getCreated(): ?DateTime;
 
-    public function setCreated(DateTimeImmutable $created);
+    public function setCreated(DateTime $created);
 
-    public function getUpdated(): DateTimeImmutable;
+    public function getUpdated(): ?DateTime;
 
-    public function setUpdated(DateTimeImmutable $updated);
+    public function setUpdated(DateTime $updated);
 }

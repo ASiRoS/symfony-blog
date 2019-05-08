@@ -8,14 +8,24 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Пожалуйста войдите:</h1>
-    <label for="inputUsername" class="sr-only">Имя пользователя</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-    <label for="inputPassword" class="sr-only">Пароль</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <div class="card">
+        <div class="card-header">Пожалуйста войдите:</div>
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="inputUsername">Имя пользователя</label>
+                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+            </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">Войти</button>
+            <div class="form-group">
+                <label for="inputPassword">Пароль</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-lg btn-primary" type="submit">Войти</button>
+        </div>
+    </div>
 </form>
 {% endblock %}
